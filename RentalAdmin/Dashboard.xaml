@@ -1,0 +1,77 @@
+﻿<Window x:Class="RentalAdmin.Dashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RentalAdmin"
+        mc:Ignorable="d"
+        Title="Dashboard" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41*"/>
+            <RowDefinition Height="97*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.RowSpan="2">
+            <!-- Titre en haut -->
+            <TextBlock Text="Dashboard Administrateur"
+                       FontSize="24" FontWeight="Bold"
+                       Foreground="#333"
+                       HorizontalAlignment="Center"
+                       Margin="0,10,0,20" />
+
+            <!-- Contrôle des onglets -->
+            <StackPanel>
+                <TabControl>
+
+                    <!-- Onglet Hébergements -->
+                    <TabItem Header="Hébergements" Margin="-2,0,-2,0" Height="20" VerticalAlignment="Bottom">
+                        <StackPanel Orientation="Horizontal" Height="250" >
+                            <Grid Background="White" >
+                                <DataGrid x:Name="HebergementsDataGrid"
+                    AutoGenerateColumns="True" >
+                                </DataGrid>
+                            </Grid>
+                        </StackPanel>
+                    </TabItem>
+
+                    <!-- Onglet Réservations -->
+                    <TabItem Header="Réservations">
+                        <Grid Background="White">
+                            <DataGrid x:Name="ReservationsDataGrid"
+                      AutoGenerateColumns="True"
+                      Margin="10"/>
+                        </Grid>
+                    </TabItem>
+
+                    <!-- Onglet Clients -->
+                    <TabItem Header="Clients">
+                        <Grid Background="White">
+                            <DataGrid x:Name="ClientsDataGrid"
+                      AutoGenerateColumns="True"
+                      Margin="10"/>
+                        </Grid>
+                    </TabItem>
+
+                    <!-- Onglet Equipements -->
+                    <TabItem Header="Equipements">
+                        <Grid Background="White">
+                            <DataGrid x:Name="EquipementsDataGrid"
+                      AutoGenerateColumns="True"
+                      Margin="10"/>
+                        </Grid>
+                    </TabItem>
+
+                </TabControl>
+                <!-- boutons-->
+                <StackPanel x:Name="panelButton" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
+                    <Button Content="Ajouter" Margin="5"/>
+                    <Button Content="Modifier" Margin="5"/>
+                    <Button Content="Supprimer" Margin="5"/>
+                </StackPanel>
+            </StackPanel>
+            
+            
+        </StackPanel>
+    </Grid>
+
+</Window>
