@@ -127,5 +127,25 @@ namespace RentalAdmin
             MessageBox.Show("Les changements ont été enregistrés !");
             LoadHebergements();
         }
+
+        private void SupprimerHebergement_Click(object sender, RoutedEventArgs e)
+        {
+            using (var npgsqlConnection = new NpgsqlConnection(connectionString))
+            {
+              
+                npgsqlConnection.Open();
+                var selectedRow = (DataRowView)HebergementsDataGrid.SelectedItem;
+                int selectedID = Convert.ToInt32(selectedRow["ID_hebergement"]);
+                string deleteQuery = @" DELETE FROM Hebergements
+                                        WHERE ID_hebergement = @selectedID";
+
+                using (var npgsqlCommand = new NpgsqlCommand(deleteQuery, npgsqlConnection))
+                {
+                    npgsqlCommand.Parameters.AddWithValue("selectedID", selectedID);
+                    npgsqlCommand.ExecuteNonQuery();
+                }
+            }
+
+        }
     }
 }

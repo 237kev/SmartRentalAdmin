@@ -71,7 +71,7 @@
                 <StackPanel x:Name="panelButton" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
                     <Button Content="enregistrer" Margin="5" Click="enregistrerHerbergement_Click"/>
                     <Button Content="Modifier" Margin="5"/>
-                    <Button Content="Supprimer" Margin="5"/>
+                    <Button Content="Supprimer" Margin="5" Click="SupprimerHebergement_Click"/>
                 </StackPanel>
             </StackPanel>
             
