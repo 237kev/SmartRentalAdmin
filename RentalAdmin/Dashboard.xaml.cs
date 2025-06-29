@@ -31,10 +31,10 @@ namespace RentalAdmin
         public Dashboard()
         {
             InitializeComponent();
-            LoadHebergement();
+            LoadHebergements();
         }
 
-        private void LoadHebergement()
+        private void LoadHebergements()
         {
             using (var npgsqlConnection = new NpgsqlConnection(connectionString))
             {
@@ -55,6 +55,77 @@ namespace RentalAdmin
             }
         }
 
+        private void enregistrerHerbergement_Click(object sender, RoutedEventArgs e)
+        {
+            using (var npgsqlConnection = new NpgsqlConnection(connectionString))
+            {
+                npgsqlConnection.Open(); // ouverture de la connection
 
+                // parcourir toute les lignes du Datagrid
+                foreach( DataRowView rowView in HebergementsDataGrid.ItemsSource)
+                {
+                    var row = rowView;
+
+                    // Verifier données obligatoires si la colonne du nom et du type ne sont remplies passe a l'iteration suivante
+                    if (string.IsNullOrWhiteSpace(row["nom"].ToString()) || string.IsNullOrWhiteSpace(row["type"].ToString()))
+                        continue;
+
+                    // il faut extraire les champs du tableau (le nom et le type)
+                    string nom = row["nom"].ToString() ?? ""; // ?? "" -> si le string es null alors attribu lui: "" pour eviter 
+                    string type = row["type"].ToString() ?? "";
+                    decimal prix = Convert.ToDecimal(row["prix_par_nuit"]);
+                    int capacite = Convert.ToInt32(row["Capacite"]);
+                    string description = row["Description"].ToString() ?? "";
+
+                    // detecter si un nouvel enregistrement ou une modification
+                    if (row["ID_hebergement"] == DBNull.Value || string.IsNullOrEmpty(row["ID_hebergement"].ToString()))
+                    {
+                        //ajouter nouvelle ligne --> INSERT
+                        string insertQuery =    @"  INSERT INTO Hebergements    (Nom,   Type,   Prix_par_nuit,  Capacite,   Description)
+                                                    VALUES                      (@nom,  @Type,  @Prix,          @Capacite,  @Description)";
+
+                        using (var npgsqlCommand = new NpgsqlCommand(insertQuery, npgsqlConnection))
+                        {
+                            npgsqlCommand.Parameters.AddWithValue("Nom", nom);
+                            npgsqlCommand.Parameters.AddWithValue("Type", type);
+                            npgsqlCommand.Parameters.AddWithValue("Prix", prix);
+                            npgsqlCommand.Parameters.AddWithValue("Capacite", capacite);
+                            npgsqlCommand.Parameters.AddWithValue("Description", description);
+                            npgsqlCommand.ExecuteNonQuery();
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        int iD_hebergement = Convert.ToInt32(row["ID_hebergement"]);
+                        // update la base de données
+                        string updateQuery = @" UPDATE Hebergements SET 
+                                                Nom =@Nom,   
+                                                Type=@Type,   
+                                                Prix_par_nuit = @Prix,  
+                                                Capacite = @Capacite,   
+                                                Description = @Description
+                                                WHERE ID_Hebergement = @ID";
+
+
+                        using (var npgsqlCommand = new NpgsqlCommand(updateQuery, npgsqlConnection)) 
+                        {
+                            npgsqlCommand.Parameters.AddWithValue("ID", iD_hebergement);
+                            npgsqlCommand.Parameters.AddWithValue("Nom", nom);
+                            npgsqlCommand.Parameters.AddWithValue("Type", type);
+                            npgsqlCommand.Parameters.AddWithValue("Prix", prix);
+                            npgsqlCommand.Parameters.AddWithValue("Capacite", capacite);
+                            npgsqlCommand.Parameters.AddWithValue("Description", description);
+                            npgsqlCommand.ExecuteNonQuery();
+                        }
+
+                    }
+                }
+            }
+            MessageBox.Show("Les changements ont été enregistrés !");
+            LoadHebergements();
+        }
     }
 }
