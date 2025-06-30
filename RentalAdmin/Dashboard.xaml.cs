@@ -130,14 +130,30 @@ namespace RentalAdmin
 
         private void SupprimerHebergement_Click(object sender, RoutedEventArgs e)
         {
+
+
+
+
             using (var npgsqlConnection = new NpgsqlConnection(connectionString))
             {
               
                 npgsqlConnection.Open();
                 var selectedRow = (DataRowView)HebergementsDataGrid.SelectedItem;
-                int selectedID = Convert.ToInt32(selectedRow["ID_hebergement"]);
+                int selectedID  = Convert.ToInt32(selectedRow["ID_hebergement"]);
+                string nom      = selectedRow["nom"].ToString() ?? ""; // ?? "" -> si le string es null alors attribu lui: "" pour eviter 
+                string type     = selectedRow["type"].ToString() ?? "";
+                decimal prix    = Convert.ToDecimal(selectedRow["prix_par_nuit"]);
+                int capacite    = Convert.ToInt32(selectedRow["Capacite"]);
+                string description = selectedRow["Description"].ToString() ?? "";
                 string deleteQuery = @" DELETE FROM Hebergements
                                         WHERE ID_hebergement = @selectedID";
+
+                // Verifier données obligatoires si la colonne du nom et du type ne sont remplies passe a l'iteration suivante
+                if (string.IsNullOrWhiteSpace(selectedRow["nom"].ToString()) || string.IsNullOrWhiteSpace(selectedRow["type"].ToString()))
+                {
+                    continue;
+                }
+                    
 
                 using (var npgsqlCommand = new NpgsqlCommand(deleteQuery, npgsqlConnection))
                 {
