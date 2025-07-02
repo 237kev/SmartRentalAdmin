@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Sockets;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +56,7 @@ namespace RentalAdmin
                 }
             }
         }
+
 
         private void enregistrerHerbergement_Click(object sender, RoutedEventArgs e)
         {
@@ -184,5 +186,41 @@ namespace RentalAdmin
             LoadHebergements();
 
         }
+
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var tabControl = sender as TabControl; // make the TabControl as Sender for the SelectionChangedEventArgs
+
+
+            if (tabControl.SelectedItem is TabItem selectedTab)
+            {
+                string header = selectedTab.Header.ToString() ??"";
+
+                switch (header)
+                {
+                    case "Hébergements":   
+                        panelButtonHebergements.Visibility = Visibility.Visible;
+                        panelButtonReservation.Visibility = Visibility.Collapsed;
+                        break;
+
+                    case "Réservations":
+                        panelButtonHebergements.Visibility = Visibility.Collapsed;
+                        panelButtonReservation.Visibility = Visibility.Visible;
+                        break;
+
+                }
+                //// Exemple de réaction
+                //if (header != "Hébergements")
+                //{
+                //    // Charger ou rafraîchir la liste des hébergements
+                //    panelButtonHebergements.Visibility = Visibility.Collapsed;
+                //}
+                //else panelButtonHebergements.Visibility = Visibility.Visible;
+
+            }
+        }
+
+
     }
 }

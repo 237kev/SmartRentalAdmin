@@ -21,8 +21,7 @@
 
             <!-- Contrôle des onglets -->
             <StackPanel>
-                <TabControl>
-
+                <TabControl SelectionChanged="TabControl_SelectionChanged">
                     <!-- Onglet Hébergements -->
                     <TabItem Header="Hébergements" Margin="-2,0,-2,0" Height="20" VerticalAlignment="Bottom">
                         <StackPanel Orientation="Horizontal" Height="250" >
@@ -68,10 +67,15 @@
 
                 </TabControl>
                 <!-- boutons-->
-                <StackPanel x:Name="panelButton" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
+                <StackPanel x:Name="panelButtonHebergements" Background="#FFCCE5FF" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
                     <Button Content="enregistrer" Margin="5" Click="enregistrerHerbergement_Click"/>
                     <Button Content="Modifier" Margin="5"/>
                     <Button Content="Supprimer" Margin="5" Click="SupprimerHebergement_Click"/>
+                </StackPanel>
+                <StackPanel x:Name="panelButtonReservation" Background="#FFF8E0B2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
+                    <Button Content="enregistrer" Margin="5" />
+                    <Button Content="Modifier" Margin="5"/>
+                    <Button Content="Supprimer" Margin="5" />
                 </StackPanel>
             </StackPanel>
             
