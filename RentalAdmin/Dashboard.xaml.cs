@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,8 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Data;
-using Npgsql;
 
 namespace RentalAdmin   
 {
@@ -130,37 +131,57 @@ namespace RentalAdmin
 
         private void SupprimerHebergement_Click(object sender, RoutedEventArgs e)
         {
+            // verifier si un row du tableau a ete selectionner?
+            if (HebergementsDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Veuillez sélectionner un hébergement à supprimer");
+                return;
+            }
 
+            // confirmer la suppression
+            var result = MessageBox.Show("Êtes - vous sûr de vouloir supprimer cet hébergement ? ",
+                "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result != MessageBoxResult.Yes) 
+                return;
+            // je recupere le row selection et son Id
+            var selectedRow = (DataRowView)HebergementsDataGrid.SelectedItem;
 
+            // es ce le celulle ID a une valeur ou est vide
+            if (selectedRow["ID_hebergement"] == DBNull.Value || string.IsNullOrEmpty(selectedRow["ID_hebergement"].ToString()))
+            {
+                MessageBox.Show("Impossible de supprimer : l'ID est manquant. referez l'admin de la base de donnée");
+                return;
 
+            }
 
+            // suprimer de la ligne dans la base de donnée
             using (var npgsqlConnection = new NpgsqlConnection(connectionString))
             {
               
                 npgsqlConnection.Open();
-                var selectedRow = (DataRowView)HebergementsDataGrid.SelectedItem;
-                int selectedID  = Convert.ToInt32(selectedRow["ID_hebergement"]);
-                string nom      = selectedRow["nom"].ToString() ?? ""; // ?? "" -> si le string es null alors attribu lui: "" pour eviter 
-                string type     = selectedRow["type"].ToString() ?? "";
-                decimal prix    = Convert.ToDecimal(selectedRow["prix_par_nuit"]);
-                int capacite    = Convert.ToInt32(selectedRow["Capacite"]);
-                string description = selectedRow["Description"].ToString() ?? "";
+                int selectedID = Convert.ToInt32(selectedRow["ID_hebergement"]);
+               //string type     = selectedRow["type"].ToString() ?? "";
+               // decimal prix    = Convert.ToDecimal(selectedRow["prix_par_nuit"]);
+               // int capacite    = Convert.ToInt32(selectedRow["Capacite"]);
+               // string description = selectedRow["Description"].ToString() ?? "";
                 string deleteQuery = @" DELETE FROM Hebergements
                                         WHERE ID_hebergement = @selectedID";
 
-                // Verifier données obligatoires si la colonne du nom et du type ne sont remplies passe a l'iteration suivante
-                if (string.IsNullOrWhiteSpace(selectedRow["nom"].ToString()) || string.IsNullOrWhiteSpace(selectedRow["type"].ToString()))
-                {
-                    continue;
-                }
-                    
 
                 using (var npgsqlCommand = new NpgsqlCommand(deleteQuery, npgsqlConnection))
                 {
                     npgsqlCommand.Parameters.AddWithValue("selectedID", selectedID);
-                    npgsqlCommand.ExecuteNonQuery();
+                    int affectedRows =  npgsqlCommand.ExecuteNonQuery();
+
+                    if (affectedRows > 0)
+                        MessageBox.Show("\"Hébergement supprimé avec succès !");
+                    else
+                        MessageBox.Show("Erreur : aucun enregistrement supprimé.");
                 }
             }
+
+            // rafraichir le datagrid
+            LoadHebergements();
 
         }
     }
