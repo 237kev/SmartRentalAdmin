@@ -29,11 +29,14 @@ namespace RentalAdmin
         //Database = databaseLegrandpre
 
         // le string de connection
-        private string connectionString = "Host=localhost;Username=postgres;Password=123456789;Database=databaseLegrandpre";
+        private readonly string connectionString = "Host=localhost;Username=postgres;Password=123456789;Database=databaseLegrandpre";
         public Dashboard()
         {
             InitializeComponent();
             LoadHebergements();
+            LoadReservation();
+            LoadClients();
+            LoadEquipement();
         }
 
         private void LoadHebergements()
@@ -58,7 +61,7 @@ namespace RentalAdmin
         }
 
 
-        private void enregistrerHerbergement_Click(object sender, RoutedEventArgs e)
+        private void EnregistrerHerbergement_Click(object sender, RoutedEventArgs e)
         {
             using (var npgsqlConnection = new NpgsqlConnection(connectionString))
             {
@@ -162,10 +165,6 @@ namespace RentalAdmin
               
                 npgsqlConnection.Open();
                 int selectedID = Convert.ToInt32(selectedRow["ID_hebergement"]);
-               //string type     = selectedRow["type"].ToString() ?? "";
-               // decimal prix    = Convert.ToDecimal(selectedRow["prix_par_nuit"]);
-               // int capacite    = Convert.ToInt32(selectedRow["Capacite"]);
-               // string description = selectedRow["Description"].ToString() ?? "";
                 string deleteQuery = @" DELETE FROM Hebergements
                                         WHERE ID_hebergement = @selectedID";
 
@@ -187,6 +186,93 @@ namespace RentalAdmin
 
         }
 
+        private void EnregistrerReservation_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            
+        }
+        private void SupprimerReservation_Click(object sender, EventArgs eventArgs)
+        {
+            LoadReservation();
+        }
+
+        private void LoadClients()
+        {
+            try
+            {
+                using(var npgsqlConnection = new NpgsqlConnection(connectionString))
+                {
+                    npgsqlConnection.Open();
+                    string query = @"SELECT * FROM Clients";
+                    var npgsqlCommand = new NpgsqlCommand(query, npgsqlConnection);
+                    var npgsqlAdapter = new NpgsqlDataAdapter(npgsqlCommand);
+                    DataTable dataTable = new DataTable();
+                    npgsqlAdapter.Fill(dataTable);
+
+                    ClientsDataGrid.ItemsSource = dataTable.DefaultView;
+                }
+
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void LoadEquipement()
+        {
+            try
+            {
+                using (var npgsqlConnection = new NpgsqlConnection(connectionString))
+                {
+                    npgsqlConnection.Open();
+                    string query = @"SELECT * FROM Equipements";
+                    var npgsqlCommand = new NpgsqlCommand(query, npgsqlConnection);
+                    var npgsqlAdapter = new NpgsqlDataAdapter(npgsqlCommand);
+                    DataTable dataTable = new DataTable();
+                    npgsqlAdapter.Fill(dataTable);
+
+                    EquipementsDataGrid.ItemsSource = dataTable.DefaultView;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+        private void LoadReservation()
+        {
+            try
+            {
+                using (var npgsqlConnection = new NpgsqlConnection(connectionString))
+                {
+                    npgsqlConnection.Open();
+                    string query = @"
+                                    SELECT *
+
+                                    FROM
+                                        Reservations";
+
+                    using (var npgsqlCmd = new NpgsqlCommand(query, npgsqlConnection))
+                    using (var npgsqlAdapter = new NpgsqlDataAdapter(npgsqlCmd))
+                    {
+                        DataTable dt = new DataTable();
+                        npgsqlAdapter.Fill(dt);
+                        ReservationsDataGrid.ItemsSource = dt.DefaultView;
+                    }
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+           
+        }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -195,31 +281,58 @@ namespace RentalAdmin
 
             if (tabControl.SelectedItem is TabItem selectedTab)
             {
-                string header = selectedTab.Header.ToString() ??"";
+                string header = selectedTab.Header.ToString() ?? "";
 
                 switch (header)
                 {
-                    case "Hébergements":   
+                    case "Hébergements":
                         panelButtonHebergements.Visibility = Visibility.Visible;
-                        panelButtonReservation.Visibility = Visibility.Collapsed;
+                        panelButtonReservations.Visibility = Visibility.Collapsed;
+                        panelButtonClients.Visibility = Visibility.Collapsed;
+                        panelButtonEquipements.Visibility = Visibility.Collapsed;
                         break;
 
                     case "Réservations":
                         panelButtonHebergements.Visibility = Visibility.Collapsed;
-                        panelButtonReservation.Visibility = Visibility.Visible;
+                        panelButtonReservations.Visibility = Visibility.Visible;
+                        panelButtonClients.Visibility = Visibility.Collapsed;
+                        panelButtonEquipements.Visibility = Visibility.Collapsed;
+                        break;
+                    case "Clients":
+                        panelButtonHebergements.Visibility = Visibility.Collapsed;
+                        panelButtonReservations.Visibility = Visibility.Collapsed;
+                        panelButtonClients.Visibility = Visibility.Visible;
+                        panelButtonEquipements.Visibility = Visibility.Collapsed;
+                        break;
+                    case "Equipements":
+                        panelButtonHebergements.Visibility = Visibility.Collapsed;
+                        panelButtonReservations.Visibility = Visibility.Collapsed;
+                        panelButtonClients.Visibility = Visibility.Collapsed;
+                        panelButtonEquipements.Visibility = Visibility.Visible;
                         break;
 
                 }
-                //// Exemple de réaction
-                //if (header != "Hébergements")
-                //{
-                //    // Charger ou rafraîchir la liste des hébergements
-                //    panelButtonHebergements.Visibility = Visibility.Collapsed;
-                //}
-                //else panelButtonHebergements.Visibility = Visibility.Visible;
+
 
             }
+
         }
+        //private void SupprimerEquipement_Click(object sender, EventArgs eventArgs)
+        //{
+
+        //}
+        //private void EnregistrerEquipement_Click(object sender, EventArgs eventArgs)
+        //{
+
+        //}
+        //private void SupprimerClient_Click(object sender, EventArgs eventArgs)
+        //{
+
+        //}
+        //private void EnregistrerClients_Click(object sender, EventArgs eventArgs)
+        //{
+
+        //}
 
 
     }

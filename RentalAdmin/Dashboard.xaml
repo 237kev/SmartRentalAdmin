@@ -35,47 +35,64 @@
 
                     <!-- Onglet Réservations -->
                     <TabItem Header="Réservations">
-                        <Grid Background="White">
-                            <DataGrid x:Name="ReservationsDataGrid"
-                      AutoGenerateColumns="True"
-                      Margin="10"/>
-                        </Grid>
+                        <StackPanel Orientation="Horizontal" Height="250" >
+                            <Grid Background="White">
+                                <DataGrid   x:Name="ReservationsDataGrid"
+                                            AutoGenerateColumns="True"
+                                            Margin="10">
+                                </DataGrid>
+                            </Grid>
+                        </StackPanel>
                     </TabItem>
 
                     <!-- Onglet Clients -->
                     <TabItem Header="Clients">
-                        <Grid Background="White">
-                            <DataGrid x:Name="ClientsDataGrid"
-                      AutoGenerateColumns="True"
-                      Margin="10"/>
-                        </Grid>
+                        <StackPanel Orientation="Horizontal" Height="250">
+                            <Grid Background="White">
+                                <DataGrid x:Name="ClientsDataGrid"
+                                                  AutoGenerateColumns="True"
+                                                  Margin="10"/>
+                            </Grid>
+                        </StackPanel>
                     </TabItem>
 
                     <!-- Onglet Equipements -->
                     <TabItem Header="Equipements">
-                        <Grid Background="White">
-                            <!-- rendre les Datagrid editable, receptif et effacable  avec IsReadOnly="Flase" CanUserAddRows et CanUserDeleteRows -->
-                            <DataGrid x:Name="EquipementsDataGrid"
-                                        AutoGenerateColumns="True"
-                                        Margin="10"
-                                        CanUserAddRows="True" 
-                                        CanUserDeleteRows="True"
-                                        IsReadOnly="False"/>
-                            <!-- rendre les Datagrid editable-->
-                        </Grid>
+                        <StackPanel Orientation="Horizontal" Height="250" Width="60">
+                            <Grid Background="White">
+                                <!-- rendre les Datagrid editable, receptif et effacable  avec IsReadOnly="Flase" CanUserAddRows et CanUserDeleteRows -->
+                                <DataGrid x:Name="EquipementsDataGrid"
+                                            AutoGenerateColumns="True"
+                                            Margin="10"
+                                            CanUserAddRows="True" 
+                                            CanUserDeleteRows="True"
+                                            IsReadOnly="False">
+                                </DataGrid>
+                            </Grid>
+                        </StackPanel>
                     </TabItem>
 
                 </TabControl>
                 <!-- boutons-->
                 <StackPanel x:Name="panelButtonHebergements" Background="#FFCCE5FF" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
-                    <Button Content="enregistrer" Margin="5" Click="enregistrerHerbergement_Click"/>
+                    <Button Content="enregistrer" Margin="5" Click="EnregistrerHerbergement_Click"/>
                     <Button Content="Modifier" Margin="5"/>
                     <Button Content="Supprimer" Margin="5" Click="SupprimerHebergement_Click"/>
                 </StackPanel>
-                <StackPanel x:Name="panelButtonReservation" Background="#FFF8E0B2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
+                <StackPanel x:Name="panelButtonReservations" Background="#FFF8E0B2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
+                    <Button Content="enregistrer" Margin="5" Click="EnregistrerReservation_Click"/>
+                    <Button Content="Modifier" Margin="5"/>
+                    <Button Content="Supprimer" Margin="5" Click="SupprimerReservation_Click"/>
+                </StackPanel>
+                <StackPanel x:Name="panelButtonClients" Background="#FF38E0B2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
+                    <Button Content="enregistrer" Margin="5"/>
+                    <Button Content="Modifier" Margin="5"/>
+                    <Button Content="Supprimer" Margin="5"/>
+                </StackPanel>
+                <StackPanel x:Name="panelButtonEquipements" Background="#9FF8E0B2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
                     <Button Content="enregistrer" Margin="5" />
                     <Button Content="Modifier" Margin="5"/>
-                    <Button Content="Supprimer" Margin="5" />
+                    <Button Content="Supprimer" Margin="5"/>
                 </StackPanel>
             </StackPanel>
             
