@@ -253,11 +253,20 @@ namespace RentalAdmin
                 using (var npgsqlConnection = new NpgsqlConnection(connectionString))
                 {
                     npgsqlConnection.Open();
-                    string query = @"
-                                    SELECT *
+                    //string query = @"
+                    //                SELECT *
 
+                    //                FROM
+                    //                    Reservations";
+                    string query = @"   SELECT
+	                                    c.nom,
+	                                    c.email,
+	                                    c.telephone,
+	                                    r.date_debut,
+	                                    r.date_fin
                                     FROM
-                                        Reservations";
+                                        clients c 
+                                    JOIN reservations r ON c.id_client = r.id_client";
 
                     using (var npgsqlCmd = new NpgsqlCommand(query, npgsqlConnection))
                     using (var npgsqlAdapter = new NpgsqlDataAdapter(npgsqlCmd))

@@ -58,7 +58,7 @@
 
                     <!-- Onglet Equipements -->
                     <TabItem Header="Equipements">
-                        <StackPanel Orientation="Horizontal" Height="250" Width="60">
+                        <StackPanel Orientation="Horizontal" Height="250">
                             <Grid Background="White">
                                 <!-- rendre les Datagrid editable, receptif et effacable  avec IsReadOnly="Flase" CanUserAddRows et CanUserDeleteRows -->
                                 <DataGrid x:Name="EquipementsDataGrid"
