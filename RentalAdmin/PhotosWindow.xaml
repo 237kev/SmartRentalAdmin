@@ -1,0 +1,40 @@
+﻿<Window x:Class="RentalAdmin.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RentalAdmin"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="800">
+    <Grid>
+        <ScrollViewer Height="300">
+            <ItemsControl ItemsSource="{Binding Photos}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding CheminFichier}" Width="150" Height="100" Margin="5" 
+                       Cursor="Hand" MouseLeftButtonUp="Photo_Click"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <Grid x:Name="DiapoPanel" Visibility="Collapsed" Background="#AA000000">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="{Binding PhotoActuelle.CheminFichier}"
+               Width="600" Height="400"
+               Stretch="Uniform" Margin="10"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <Button Content="Précédent" Click="PhotoPrecedente_Click" Margin="5"/>
+                    <Button Content="Suivant" Click="PhotoSuivante_Click" Margin="5"/>
+                    <Button Content="Fermer" Click="FermerDiapo_Click" Margin="5"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Window>

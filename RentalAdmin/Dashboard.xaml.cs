@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace RentalAdmin   
 {
     /// <summary>
@@ -68,7 +69,7 @@ namespace RentalAdmin
                 npgsqlConnection.Open(); // ouverture de la connection
 
                 // parcourir toute les lignes du Datagrid
-                foreach( DataRowView rowView in HebergementsDataGrid.ItemsSource)
+                foreach (DataRowView rowView in HebergementsDataGrid.ItemsSource)
                 {
                     var row = rowView;
 
@@ -87,7 +88,7 @@ namespace RentalAdmin
                     if (row["ID_hebergement"] == DBNull.Value || string.IsNullOrEmpty(row["ID_hebergement"].ToString()))
                     {
                         //ajouter nouvelle ligne --> INSERT
-                        string insertQuery =    @"  INSERT INTO Hebergements    (Nom,   Type,   Prix_par_nuit,  Capacite,   Description)
+                        string insertQuery = @"  INSERT INTO Hebergements    (Nom,   Type,   Prix_par_nuit,  Capacite,   Description)
                                                     VALUES                      (@nom,  @Type,  @Prix,          @Capacite,  @Description)";
 
                         using (var npgsqlCommand = new NpgsqlCommand(insertQuery, npgsqlConnection))
@@ -116,7 +117,7 @@ namespace RentalAdmin
                                                 WHERE ID_Hebergement = @ID";
 
 
-                        using (var npgsqlCommand = new NpgsqlCommand(updateQuery, npgsqlConnection)) 
+                        using (var npgsqlCommand = new NpgsqlCommand(updateQuery, npgsqlConnection))
                         {
                             npgsqlCommand.Parameters.AddWithValue("ID", iD_hebergement);
                             npgsqlCommand.Parameters.AddWithValue("Nom", nom);
@@ -146,7 +147,7 @@ namespace RentalAdmin
             // confirmer la suppression
             var result = MessageBox.Show("Êtes - vous sûr de vouloir supprimer cet hébergement ? ",
                 "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            if (result != MessageBoxResult.Yes) 
+            if (result != MessageBoxResult.Yes)
                 return;
             // je recupere le row selection et son Id
             var selectedRow = (DataRowView)HebergementsDataGrid.SelectedItem;
@@ -162,7 +163,7 @@ namespace RentalAdmin
             // suprimer de la ligne dans la base de donnée
             using (var npgsqlConnection = new NpgsqlConnection(connectionString))
             {
-              
+
                 npgsqlConnection.Open();
                 int selectedID = Convert.ToInt32(selectedRow["ID_hebergement"]);
                 string deleteQuery = @" DELETE FROM Hebergements
@@ -172,7 +173,7 @@ namespace RentalAdmin
                 using (var npgsqlCommand = new NpgsqlCommand(deleteQuery, npgsqlConnection))
                 {
                     npgsqlCommand.Parameters.AddWithValue("selectedID", selectedID);
-                    int affectedRows =  npgsqlCommand.ExecuteNonQuery();
+                    int affectedRows = npgsqlCommand.ExecuteNonQuery();
 
                     if (affectedRows > 0)
                         MessageBox.Show("\"Hébergement supprimé avec succès !");
@@ -190,12 +191,12 @@ namespace RentalAdmin
         {
             try
             {
-                
-            }catch(Exception ex)
+
+            } catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
             }
-            
+
         }
         private void SupprimerReservation_Click(object sender, EventArgs eventArgs)
         {
@@ -206,7 +207,7 @@ namespace RentalAdmin
         {
             try
             {
-                using(var npgsqlConnection = new NpgsqlConnection(connectionString))
+                using (var npgsqlConnection = new NpgsqlConnection(connectionString))
                 {
                     npgsqlConnection.Open();
                     string query = @"SELECT * FROM Clients";
@@ -218,7 +219,7 @@ namespace RentalAdmin
                     ClientsDataGrid.ItemsSource = dataTable.DefaultView;
                 }
 
-            }catch(Exception ex)
+            } catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
             }
@@ -258,12 +259,13 @@ namespace RentalAdmin
 
                     //                FROM
                     //                    Reservations";
-                    string query = @"   SELECT
+                    string query = @"SELECT
 	                                    c.nom,
 	                                    c.email,
 	                                    c.telephone,
 	                                    r.date_debut,
-	                                    r.date_fin
+	                                    r.date_fin,
+                                        r.statut
                                     FROM
                                         clients c 
                                     JOIN reservations r ON c.id_client = r.id_client";
@@ -276,11 +278,11 @@ namespace RentalAdmin
                         ReservationsDataGrid.ItemsSource = dt.DefaultView;
                     }
                 }
-            }catch(Exception ex)
+            } catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
-           
+
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -326,22 +328,40 @@ namespace RentalAdmin
             }
 
         }
-        //private void SupprimerEquipement_Click(object sender, EventArgs eventArgs)
-        //{
 
-        //}
-        //private void EnregistrerEquipement_Click(object sender, EventArgs eventArgs)
-        //{
+        private void VoirPhotos_Click(object sender, EventArgs e)
+        {
 
-        //}
-        //private void SupprimerClient_Click(object sender, EventArgs eventArgs)
-        //{
+            var selectedRow = (DataRowView)HebergementsDataGrid.SelectedItem;
 
-        //}
-        //private void EnregistrerClients_Click(object sender, EventArgs eventArgs)
-        //{
+            if (selectedRow == null)
+            {
+                MessageBox.Show("Selection un Hebergement dans la liste");
+                return;
+            }
 
-        //}
+            int idHebergement = Convert.ToInt32(selectedRow["id_hebergement"]);
+            var photoWindow = new Window1(idHebergement,connectionString);
+            photoWindow.Show();
+
+        }
+
+    //private void SupprimerEquipement_Click(object sender, EventArgs eventArgs)
+    //{
+
+    //}
+    //private void EnregistrerEquipement_Click(object sender, EventArgs eventArgs)
+    //{
+
+    //}
+    //private void SupprimerClient_Click(object sender, EventArgs eventArgs)
+    //{
+
+    //}
+    //private void EnregistrerClients_Click(object sender, EventArgs eventArgs)
+    //{
+
+    //}
 
 
     }

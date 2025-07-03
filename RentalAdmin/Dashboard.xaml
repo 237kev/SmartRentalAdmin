@@ -14,7 +14,7 @@
         <StackPanel Grid.RowSpan="2">
             <!-- Titre en haut -->
             <TextBlock Text="Dashboard Administrateur"
-                       FontSize="24" FontWeight="Bold"
+                       FontSize="16" FontWeight="Bold"
                        Foreground="#333"
                        HorizontalAlignment="Center"
                        Margin="0,10,0,20" />
@@ -62,7 +62,7 @@
                             <Grid Background="White">
                                 <!-- rendre les Datagrid editable, receptif et effacable  avec IsReadOnly="Flase" CanUserAddRows et CanUserDeleteRows -->
                                 <DataGrid x:Name="EquipementsDataGrid"
-                                            AutoGenerateColumns="True"
+                                            AutoGenerateColumns="false"
                                             Margin="10"
                                             CanUserAddRows="True" 
                                             CanUserDeleteRows="True"
@@ -76,22 +76,22 @@
                 <!-- boutons-->
                 <StackPanel x:Name="panelButtonHebergements" Background="#FFCCE5FF" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
                     <Button Content="enregistrer" Margin="5" Click="EnregistrerHerbergement_Click"/>
-                    <Button Content="Modifier" Margin="5"/>
+                    <Button Content="Voir Photos" Margin="5" Click="VoirPhotos_Click"/>
                     <Button Content="Supprimer" Margin="5" Click="SupprimerHebergement_Click"/>
                 </StackPanel>
                 <StackPanel x:Name="panelButtonReservations" Background="#FFF8E0B2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
                     <Button Content="enregistrer" Margin="5" Click="EnregistrerReservation_Click"/>
-                    <Button Content="Modifier" Margin="5"/>
+                    <!-- <Button Content="Modifier" Margin="5"/> -->
                     <Button Content="Supprimer" Margin="5" Click="SupprimerReservation_Click"/>
                 </StackPanel>
                 <StackPanel x:Name="panelButtonClients" Background="#FF38E0B2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
                     <Button Content="enregistrer" Margin="5"/>
-                    <Button Content="Modifier" Margin="5"/>
+                    <!-- <Button Content="Modifier" Margin="5"/> -->
                     <Button Content="Supprimer" Margin="5"/>
                 </StackPanel>
                 <StackPanel x:Name="panelButtonEquipements" Background="#9FF8E0B2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
                     <Button Content="enregistrer" Margin="5" />
-                    <Button Content="Modifier" Margin="5"/>
+                    <!-- <Button Content="Modifier" Margin="5"/> -->
                     <Button Content="Supprimer" Margin="5"/>
                 </StackPanel>
             </StackPanel>
