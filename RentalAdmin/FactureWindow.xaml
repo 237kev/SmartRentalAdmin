@@ -1,0 +1,35 @@
+﻿<Window x:Class="RentalAdmin.FactureWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RentalAdmin"
+        mc:Ignorable="d"
+        Title="FactureWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel Margin="20">
+            <TextBlock Text="FACTURE" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+            
+            <TextBlock Text="Client :" FontWeight="Bold"/>
+            <TextBlock Text="{Binding ClientNom}"/>
+            <TextBlock Text="{Binding ClientEmail}"/>
+            <TextBlock Text="{Binding ClientTelephone}"  Margin="0,0,0,10"/>
+            
+            <TextBlock Text="Hébergement :" FontWeight="Bold"/>
+            <TextBlock Text="{Binding HebergementNom}" Margin="0,0,0,10"/>
+            
+            <TextBlock Text="Dates :" FontWeight="Bold"/>
+            <TextBlock Text="{Binding DateDebut}"/>
+            <TextBlock Text="{Binding DateFin}" Margin="0,0,0,10"/>
+            
+            <TextBlock Text="Prix par nuit :" FontWeight="Bold"/>
+            <TextBlock Text="{Binding PrixParNuit}" Margin="0,0,0,10"/>
+
+            <TextBlock Text="TOTAL :" FontSize="16" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Total}" FontSize="16"/>
+
+
+
+        </StackPanel>
+    </Grid>
+</Window>

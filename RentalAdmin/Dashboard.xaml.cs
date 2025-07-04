@@ -260,15 +260,19 @@ namespace RentalAdmin
                     //                FROM
                     //                    Reservations";
                     string query = @"SELECT
-	                                    c.nom,
+	                                    c.nom as nom_client,
 	                                    c.email,
 	                                    c.telephone,
 	                                    r.date_debut,
 	                                    r.date_fin,
+                                        h.nom as nom_hebergement,
+                                        h.type as type_hebergement,
+                                        h.prix_par_nuit,
                                         r.statut
                                     FROM
                                         clients c 
-                                    JOIN reservations r ON c.id_client = r.id_client";
+                                    JOIN reservations r ON c.id_client = r.id_client
+                                    JOIN hebergements h ON r.id_reservation = r.id_reservation";
 
                     using (var npgsqlCmd = new NpgsqlCommand(query, npgsqlConnection))
                     using (var npgsqlAdapter = new NpgsqlDataAdapter(npgsqlCmd))
@@ -336,7 +340,7 @@ namespace RentalAdmin
 
             if (selectedRow == null)
             {
-                MessageBox.Show("Selection un Hebergement dans la liste");
+                MessageBox.Show("Selectionnez un Hebergement dans la liste");
                 return;
             }
 
@@ -348,6 +352,21 @@ namespace RentalAdmin
 
         private void ImprimerFacture_Click(object sender, EventArgs e)
         {
+            var selectedItem = (DataRowView)ReservationsDataGrid.SelectedItem;
+            if(selectedItem == null)
+            {
+                MessageBox.Show("selectionnez une reservation dans la liste");
+                return;
+            }
+            string  nomClient = selectedItem["nom_client"].ToString() ??"";
+            string  emailClient = selectedItem["email"].ToString() ??"";
+            DateTime  dateDebut = (DateTime)selectedItem["date_debut"];
+            DateTime  datefin = (DateTime)selectedItem["date_fin"];
+            string  nomHebergement = selectedItem["nom_hebergement"].ToString() ??"";
+            decimal  prixParNuit = Convert.ToDecimal(selectedItem["prix_par_nuit"]);
+
+            var factureWindow = new FactureWindow( nomClient,  emailClient,  dateDebut, datefin, nomHebergement, prixParNuit);
+            factureWindow.ShowDialog();
 
         }
 
