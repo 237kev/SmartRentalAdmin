@@ -23,6 +23,7 @@ namespace RentalAdmin
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            
             string identifiantAdmin = UsernameTextBox.Text;
             string motDePasse = PasswordBox.Password;
 

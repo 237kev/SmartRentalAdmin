@@ -58,11 +58,11 @@
 
                     <!-- Onglet Equipements -->
                     <TabItem Header="Equipements">
-                        <StackPanel Orientation="Horizontal" Height="250">
+                        <StackPanel Orientation="Horizontal" Height="250" Width="100">
                             <Grid Background="White">
                                 <!-- rendre les Datagrid editable, receptif et effacable  avec IsReadOnly="Flase" CanUserAddRows et CanUserDeleteRows -->
                                 <DataGrid x:Name="EquipementsDataGrid"
-                                            AutoGenerateColumns="false"
+                                            AutoGenerateColumns="true"
                                             Margin="10"
                                             CanUserAddRows="True" 
                                             CanUserDeleteRows="True"
@@ -78,6 +78,7 @@
                     <Button Content="enregistrer" Margin="5" Click="EnregistrerHerbergement_Click"/>
                     <Button Content="Voir Photos" Margin="5" Click="VoirPhotos_Click"/>
                     <Button Content="Supprimer" Margin="5" Click="SupprimerHebergement_Click"/>
+                    <Button Content="facture" Margin="5" Click="ImprimerFacture_Click"/>
                 </StackPanel>
                 <StackPanel x:Name="panelButtonReservations" Background="#FFF8E0B2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
                     <Button Content="enregistrer" Margin="5" Click="EnregistrerReservation_Click"/>

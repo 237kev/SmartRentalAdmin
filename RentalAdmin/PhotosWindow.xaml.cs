@@ -34,20 +34,20 @@ namespace RentalAdmin
             InitializeComponent();
             _id = id;
             _conn = conn;
-            LoadPhotosFromDB(id, conn);
+            LoadPhotosFromDB();
             this.DataContext = this;
 
         }
 
-        private void LoadPhotosFromDB(int id, string conn)
+        private void LoadPhotosFromDB()
         {
-            using (var connection = new NpgsqlConnection(conn))
+            using (var connection = new NpgsqlConnection(_conn))
             {
                 connection.Open();
                 string query = "SELECT chemin_fichier FROM Photos WHERE id_hebergement = @id";
                 using (var cmd = new NpgsqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("id", id);
+                    cmd.Parameters.AddWithValue("id", _id);
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())

@@ -346,22 +346,27 @@ namespace RentalAdmin
 
         }
 
+        private void ImprimerFacture_Click(object sender, EventArgs e)
+        {
+
+        }
+
     //private void SupprimerEquipement_Click(object sender, EventArgs eventArgs)
     //{
 
-    //}
-    //private void EnregistrerEquipement_Click(object sender, EventArgs eventArgs)
-    //{
+        //}
+        //private void EnregistrerEquipement_Click(object sender, EventArgs eventArgs)
+        //{
 
-    //}
-    //private void SupprimerClient_Click(object sender, EventArgs eventArgs)
-    //{
+        //}
+        //private void SupprimerClient_Click(object sender, EventArgs eventArgs)
+        //{
 
-    //}
-    //private void EnregistrerClients_Click(object sender, EventArgs eventArgs)
-    //{
+        //}
+        //private void EnregistrerClients_Click(object sender, EventArgs eventArgs)
+        //{
 
-    //}
+        //}
 
 
     }

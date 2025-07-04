@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RentalAdmin"
         mc:Ignorable="d"
         Title="Connection -  Admin" Height="325" Width="460">
-    <Grid>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=UsernameTextBox}">
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
             <RowDefinition Height="40"/>
@@ -27,7 +27,7 @@
                Text="Connexion Admin"
                FontSize="20" FontWeight="Bold"
                HorizontalAlignment="Center" VerticalAlignment="Center" />
-
+        
         <!-- Identifiant -->
         <TextBlock Grid.Row="2" Grid.Column="1"
                Text="Identifiant"
@@ -48,7 +48,7 @@
 
         <!-- Bouton Se connecter -->
         <Button Grid.Row="4" Grid.Column="1"
-            Content="Se connecter"
+            Content="Se connecter" IsDefault="True"
             Width="150" Height="34"
             Background="#007ACC" Foreground="White"
             FontWeight="Bold"
