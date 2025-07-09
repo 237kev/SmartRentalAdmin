@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentalAdmin"
         mc:Ignorable="d"
-        Title="Connection -  Admin" Height="325" Width="460">
+        Title="Connection -  Admin" Height="300" Width="460">
     <Grid FocusManager.FocusedElement="{Binding ElementName=UsernameTextBox}">
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="40"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="5"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="5"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
@@ -30,47 +32,90 @@
 
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                     <GradientStop  Color="#102F45" Offset="0"/>
-                    <GradientStop  Color="#E87722" Offset="1"/> 
+                    <GradientStop  Color="#E87722" Offset="1"/>
                 </LinearGradientBrush>
 
             </Border.Background>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
                 <!--logo-->
-                <Image  HorizontalAlignment="Left" Height="38" 
-                 Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" 
-                 Width="38" Source="C:\\Users\\Kevin\\Pictures\\appartement\\logo\\logo.png"/>
+                <!--logo-->
                 <!-- Titre -->
-                <TextBlock Text="Connexion Admin"
-                FontSize="15" FontWeight="Bold" Foreground="#E87722"
-                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="135,0,0,0" />
+                <!--logo-->
+                <!-- Titre -->
+                <!--logo-->
+                <Image Height="45" Margin="0,0,5,5"
+                 Width="45" Source="C:\\Users\\Kevin\\Pictures\\appartement\\logo\\logo.png"/>
+                <!-- Titre -->
+                <TextBlock Text="Connexion Admin" Margin="50,0,5,5"
+                FontSize="15" FontWeight="Bold" Foreground="#E87722" Width="251"
+                />
+                <!-- Titre -->
             </StackPanel>
         </Border>
-        <!-- Identifiant -->
-        <TextBlock Grid.Row="3" Grid.Column="2"
-                   Text="Identifiant"
-                   Margin="10,0,10,0" VerticalAlignment="Center" />
-        <TextBox Grid.Row="3" Grid.Column="2"
-                 Margin="130,0,20,0" Width="200"
-                 x:Name="UsernameTextBox"
-                 VerticalAlignment="Center"/>
 
-        <!-- Mot de passe -->
-        <TextBlock Grid.Row="4" Grid.Column="2"
-                   Text="Mot de passe"
-                   Margin="10,0,10,0" VerticalAlignment="Center" />
-        <PasswordBox Grid.Row="4" Grid.Column="2"
-                     Margin="130,0,20,0" Width="200"
-                     x:Name="PasswordBox"
-                     VerticalAlignment="Center"/>
+        <Border Grid.Row="3" Padding="10" CornerRadius="10" Margin="0,0,0,0" HorizontalAlignment="Left"
+                VerticalAlignment="Center" Width="430" Grid.Column="2" Grid.ColumnSpan="2" >
+            <Border.Background>
 
-        <!-- Bouton Se connecter -->
-        <Button Grid.Row="5" Grid.Column="2"
-                Content="Se connecter" IsDefault="True"
-                Width="150" Height="34"
-                Background="#007ACC" Foreground="White"
-                FontWeight="Bold"
-                HorizontalAlignment="Left" VerticalAlignment="Center"
-                Click="LoginButton_Click" Margin="130,0,0,0" />
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop  Color="#102F45" Offset="0"/>
+                    <GradientStop  Color="#E87722" Offset="1"/>
+                </LinearGradientBrush>
+
+            </Border.Background>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center"  >
+                <!-- Identifiant -->
+                <TextBlock Grid.Row="3" Grid.Column="2"
+                           Text="Identifiant"
+                           Margin="0,0,10,0" VerticalAlignment="Center" />
+                <TextBox Padding="10" Margin="40,0,10,0"
+                         Width="200"
+                         x:Name="UsernameTextBox" Height="24"
+                         />
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="5" Padding="10" CornerRadius="10" Margin="0,0,0,0" HorizontalAlignment="Left"
+                VerticalAlignment="Center" Width="430" Grid.Column="2" Grid.ColumnSpan="2" >
+            <Border.Background>
+
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop  Color="#102F45" Offset="0"/>
+                    <GradientStop  Color="#E87722" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <!-- Mot de passe -->
+                <TextBlock Grid.Row="4" Grid.Column="2"
+                           Text="Mot de passe"
+                           Margin="10,0,10,0" VerticalAlignment="Center" />
+                <PasswordBox Foreground="#E87722"  Margin="15,0,10,0"
+                             Width="200"
+                             x:Name="PasswordBox"
+                             />
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="7" Padding="10" CornerRadius="10" Margin="0,0,0,0" HorizontalAlignment="Left"
+        VerticalAlignment="Center" Width="430" Grid.Column="2" Grid.ColumnSpan="2" >
+            <Border.Background>
+
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop  Color="#102F45" Offset="0"/>
+                    <GradientStop  Color="#E87722" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <!-- Bouton Se connecter -->
+                <Button Grid.Row="5" Grid.Column="2"
+                        Content="Se connecter" IsDefault="True"
+                        Width="150" Height="34"
+                        Background="#007ACC" Foreground="White"
+                        FontWeight="Bold"
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    Click="LoginButton_Click" Margin="130,0,0,0" />
+            </StackPanel>
+        </Border>
 
     </Grid>
 
