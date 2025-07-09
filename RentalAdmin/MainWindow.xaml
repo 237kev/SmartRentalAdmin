@@ -9,51 +9,69 @@
     <Grid FocusManager.FocusedElement="{Binding ElementName=UsernameTextBox}">
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="4"/>
             <ColumnDefinition Width="350"/>
-            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Titre -->
-        <TextBlock Grid.Row="1" Grid.Column="1"
-               Text="Connexion Admin"
-               FontSize="20" FontWeight="Bold"
-               HorizontalAlignment="Center" VerticalAlignment="Center" />
-        
-        <!-- Identifiant -->
-        <TextBlock Grid.Row="2" Grid.Column="1"
-               Text="Identifiant"
-               Margin="10,0" VerticalAlignment="Center" />
-        <TextBox Grid.Row="2" Grid.Column="1"
-             Margin="120,0,10,0" Width="200"
-             x:Name="UsernameTextBox"
-             VerticalAlignment="Center"/>
 
-        <!-- Mot de passe -->
-        <TextBlock Grid.Row="3" Grid.Column="1"
-               Text="Mot de passe"
-               Margin="10,0" VerticalAlignment="Center" />
-        <PasswordBox Grid.Row="3" Grid.Column="1"
-                 Margin="120,0,10,0" Width="200"
-                 x:Name="PasswordBox"
+
+        <Border  Grid.Row="1" Padding="10" CornerRadius="10" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="430" Grid.Column="2" Grid.ColumnSpan="2">
+            <Border.Background>
+
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop  Color="#102F45" Offset="0"/>
+                    <GradientStop  Color="#E87722" Offset="1"/> 
+                </LinearGradientBrush>
+
+            </Border.Background>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                <!--logo-->
+                <Image  HorizontalAlignment="Left" Height="38" 
+                 Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" 
+                 Width="38" Source="C:\\Users\\Kevin\\Pictures\\appartement\\logo\\logo.png"/>
+                <!-- Titre -->
+                <TextBlock Text="Connexion Admin"
+                FontSize="15" FontWeight="Bold" Foreground="#E87722"
+                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="135,0,0,0" />
+            </StackPanel>
+        </Border>
+        <!-- Identifiant -->
+        <TextBlock Grid.Row="3" Grid.Column="2"
+                   Text="Identifiant"
+                   Margin="10,0,10,0" VerticalAlignment="Center" />
+        <TextBox Grid.Row="3" Grid.Column="2"
+                 Margin="130,0,20,0" Width="200"
+                 x:Name="UsernameTextBox"
                  VerticalAlignment="Center"/>
 
+        <!-- Mot de passe -->
+        <TextBlock Grid.Row="4" Grid.Column="2"
+                   Text="Mot de passe"
+                   Margin="10,0,10,0" VerticalAlignment="Center" />
+        <PasswordBox Grid.Row="4" Grid.Column="2"
+                     Margin="130,0,20,0" Width="200"
+                     x:Name="PasswordBox"
+                     VerticalAlignment="Center"/>
+
         <!-- Bouton Se connecter -->
-        <Button Grid.Row="4" Grid.Column="1"
-            Content="Se connecter" IsDefault="True"
-            Width="150" Height="34"
-            Background="#007ACC" Foreground="White"
-            FontWeight="Bold"
-            HorizontalAlignment="Left" VerticalAlignment="Center"
-            Click="LoginButton_Click" Margin="130,0,0,0" />
+        <Button Grid.Row="5" Grid.Column="2"
+                Content="Se connecter" IsDefault="True"
+                Width="150" Height="34"
+                Background="#007ACC" Foreground="White"
+                FontWeight="Bold"
+                HorizontalAlignment="Left" VerticalAlignment="Center"
+                Click="LoginButton_Click" Margin="130,0,0,0" />
+
     </Grid>
 
 </Window>
