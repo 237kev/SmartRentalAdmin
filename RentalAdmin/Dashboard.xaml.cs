@@ -254,11 +254,6 @@ namespace RentalAdmin
                 using (var npgsqlConnection = new NpgsqlConnection(connectionString))
                 {
                     npgsqlConnection.Open();
-                    //string query = @"
-                    //                SELECT *
-
-                    //                FROM
-                    //                    Reservations";
                     string query = @"SELECT
 	                                    c.nom as nom_client,
 	                                    c.email,
@@ -369,24 +364,6 @@ namespace RentalAdmin
             factureWindow.ShowDialog();
 
         }
-
-    //private void SupprimerEquipement_Click(object sender, EventArgs eventArgs)
-    //{
-
-        //}
-        //private void EnregistrerEquipement_Click(object sender, EventArgs eventArgs)
-        //{
-
-        //}
-        //private void SupprimerClient_Click(object sender, EventArgs eventArgs)
-        //{
-
-        //}
-        //private void EnregistrerClients_Click(object sender, EventArgs eventArgs)
-        //{
-
-        //}
-
 
     }
 }
